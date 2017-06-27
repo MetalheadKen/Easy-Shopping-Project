@@ -1,0 +1,11 @@
+#!/bin/sh
+. ./ibeacon.conf
+echo
+echo "Enable iBeacon singal Advertising ..."
+
+sudo hciconfig hci0 up
+sudo hciconfig hci0 noleadv
+sudo hcitool -i hci0 cmd 0x08 0x0006 A0 00 A0 00 03 00 00 00 00 00 00 00 00 07 00
+sudo hcitool -i hci0 cmd 0x08 0x0008 1E 02 01 1A 1A FF 4C 00 02 15 $UUID $MAJOR $MINOR $POWER 00
+sudo hcitool -i hci0 cmd 0x08 0x000a 01
+echo "Complete"
