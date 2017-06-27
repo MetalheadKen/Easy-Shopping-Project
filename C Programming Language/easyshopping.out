@@ -1,0 +1,10 @@
+#! /bin/sh
+# /etc/init.d/easyshopping
+USER=root HOME=/root
+export USER HOME
+echo "Starting Easy Shopping Project"
+
+cd /home/pi/KenDai
+./Project
+
+exit 0
