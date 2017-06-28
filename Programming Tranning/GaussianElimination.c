@@ -1,6 +1,6 @@
 #include <stdio.h>
 
-#define ROW		2
+#define ROW	2
 #define COLUMN 	3
 
 #define ZERO 	0.000001
@@ -43,15 +43,15 @@ int main(void)
 	return 0;
 }
 
-/* °ª´µ®ø¥hªk */
+/* é«˜æ–¯æ¶ˆå»æ³• */
 void GaussianElimination(double (*matrix)[COLUMN])
 {
 	for(int i = 0; i < ROW; i++) {
-		/* ¦pªG¦¹ ROW ªº­º¶µ¨t¼Æ¬°¹s¡A«h§ä´M¤U¤èªº«D¹s ROW °µ¥æ´« */
+		/* å¦‚æœæ­¤ ROW çš„é¦–é …ç³»æ•¸ç‚ºé›¶ï¼Œå‰‡æ‰¾å°‹ä¸‹æ–¹çš„éé›¶ ROW åšäº¤æ› */
 		if(IS_ZERO(matrix[i][i])) {
 			for(int j = i + 1; j < ROW; j++) {
 				if(NOT_ZERO(matrix[j][i])) {
-					/* ¥æ´«¦¹ ROW »P¤U¤è ROW */
+					/* äº¤æ›æ­¤ ROW èˆ‡ä¸‹æ–¹ ROW */
 					for(int k = i; k < COLUMN; k++) {
 						SWAP(double, matrix[i][k], matrix[j][k]);
 					}
@@ -61,16 +61,16 @@ void GaussianElimination(double (*matrix)[COLUMN])
 			}
 		}
 		
-		/* ­Y¦¹ COLUMN ³£¬°¹s¡A¸õ¦Ü¤U¤@ ROW */
+		/* è‹¥æ­¤ COLUMN éƒ½ç‚ºé›¶ï¼Œè·³è‡³ä¸‹ä¸€ ROW */
 		if(IS_ZERO(matrix[i][i])) continue;
 		
-		/* §â¦¹ ROW ªº­º¶µ¨t¼Æ½Õ¾ã¦¨¤@¡A¬°¤FÅı¯x°}ªº¹ï¨¤½u¶¥¬°¤@ */
+		/* æŠŠæ­¤ ROW çš„é¦–é …ç³»æ•¸èª¿æ•´æˆä¸€ï¼Œç‚ºäº†è®“çŸ©é™£çš„å°è§’ç·šéšç‚ºä¸€ */
 		double temp = matrix[i][i];
 		for(int j = i; j < COLUMN; j++) {
 			matrix[i][j] /= temp;
 		}
 		
-		/* ®ø¥h¤U¤è©Ò¦³ªº ROW */
+		/* æ¶ˆå»ä¸‹æ–¹æ‰€æœ‰çš„ ROW */
 		for(int j = i + 1; j < ROW; j++) {
 			if(NOT_ZERO(matrix[j][i])) {
 				double temp = matrix[j][i];
@@ -83,18 +83,18 @@ void GaussianElimination(double (*matrix)[COLUMN])
 	}
 }
 
-/* ¤Ï¦V¥N¦^ªk */
+/* åå‘ä»£å›æ³• */
 void BackSubstitution(double (*matrix)[COLUMN], double *answer)
 {
 	for(int i = ROW - 1; i >= 0; i--) {
 		double temp = 0.0;
 		
-		/* ¦]¹ï¨¤½u¬°­n¨Dªº¥¼ª¾¼Æ¡A¬G¤£»İ­pºâ */
+		/* å› å°è§’ç·šç‚ºè¦æ±‚çš„æœªçŸ¥æ•¸ï¼Œæ•…ä¸éœ€è¨ˆç®— */
 		for(int j = i + 1; j < COLUMN - 1; j++) {
 			temp += matrix[i][j] * answer[j];
 		}
 
-		/* ¨¾¤î¦]°£¹s¦Ó³y¦¨ªº Undefined Behavior */
+		/* é˜²æ­¢å› é™¤é›¶è€Œé€ æˆçš„ Undefined Behavior */
 		if(NOT_ZERO(matrix[i][i])) {
 			answer[i] = (matrix[i][COLUMN - 1] - temp) / matrix[i][i];
 		}
